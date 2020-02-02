@@ -21,10 +21,10 @@ public interface MarkMapper {
     @Mapping(target = "date", source = "mark.modificationDate")
     MarkDto markToMarkDto(Mark mark);
 
+    @Mapping(target = "modificationDate", ignore = true)
     @Mapping(target = "teacher", ignore = true)
     @Mapping(target = "subject", ignore = true)
     @Mapping(target = "student", ignore = true)
-    @Mapping(target = "modificationDate", expression = "java(LocalDate.now())")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     Mark updateMark(UpdateMarkDto updateMarkDto, @MappingTarget Mark mark);
