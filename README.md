@@ -1,6 +1,4 @@
 # E Journal
-[![Jenkins](https://jenkins.upnetix.cloud/buildStatus/icon?job=DevOps%2FTests%2Ftest-mbp%2Fdevelop)](https://jenkins.upnetix.cloud/job/DevOps/job/Tests/job/test-mbp/job/develop/)
-[![Sonar](https://sonar.upnetix.cloud/api/project_badges/measure?project=com.upnetix.java%3Aplex-user-name%3Adev&metric=alert_status)](https://sonar.upnetix.cloud/dashboard?id=com.upnetix.java%3Aplex-user-name%3Adev)
 
 ## Getting Started
 
