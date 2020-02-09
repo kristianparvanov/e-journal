@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class ParentDto {
 
-    private Long id;
+    private String id;
     private String email;
     private String firstName;
     private String middleName;

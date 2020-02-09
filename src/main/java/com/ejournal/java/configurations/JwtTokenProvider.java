@@ -42,7 +42,7 @@ public class JwtTokenProvider {
                 .collect(Collectors.toList());
 
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
+                .setSubject(userPrincipal.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
                 .claim(AUTHORITIES_KEY, authorities)
@@ -50,13 +50,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Long getUserIdFromJwt(final String token) {
+    public String getUserIdFromJwt(final String token) {
         final Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
-        return Long.parseLong(claims.getSubject());
+        return claims.getSubject();
     }
 
     public List<String> getRolesFromJwt(final String token) {

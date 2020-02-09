@@ -13,7 +13,7 @@ import lombok.Data;
 public class UpdateMarkDto {
 
     @NotNull
-    private Long id;
+    private String id;
 
     @Min(2)
     @Max(6)

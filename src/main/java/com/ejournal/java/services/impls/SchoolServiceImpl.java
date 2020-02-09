@@ -9,8 +9,8 @@ import com.ejournal.java.dtos.school.CreateSchoolDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.entities.School;
 import com.ejournal.java.exceptions.MissingSchoolUpdateProperties;
-import com.ejournal.java.exceptions.SchoolExistsException;
 import com.ejournal.java.exceptions.SchoolDoesNotExistException;
+import com.ejournal.java.exceptions.SchoolExistsException;
 import com.ejournal.java.mappers.SchoolMapper;
 import com.ejournal.java.repositories.SchoolRepository;
 import com.ejournal.java.services.SchoolService;
@@ -55,14 +55,14 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public SchoolDto getSchool(final Long id) {
+    public SchoolDto getSchool(final String id) {
         return schoolRepository.findById(id)
                 .map(schoolMapper::schoolToSchoolDto)
                 .orElseThrow(SchoolDoesNotExistException::new);
     }
 
     @Override
-    public School getById(final Long id) {
+    public School getById(final String id) {
         return schoolRepository.findById(id)
                 .orElseThrow(SchoolDoesNotExistException::new);
     }
@@ -80,7 +80,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public void deleteSchool(Long id) {
+    public void deleteSchool(String id) {
         schoolRepository.deleteById(id);
     }
 }

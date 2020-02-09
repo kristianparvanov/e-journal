@@ -3,8 +3,8 @@ package com.ejournal.java.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.ejournal.java.dtos.ApiResponseDto;
-import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.dtos.school.CreateSchoolDto;
+import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.entities.School;
 
 /**
@@ -18,11 +18,11 @@ public interface SchoolService {
 
     Page<SchoolDto> getSchools(String name, Pageable pageable);
 
-    SchoolDto getSchool(Long id);
+    SchoolDto getSchool(String id);
 
-    School getById(Long id);
+    School getById(String id);
 
     SchoolDto updateSchool(SchoolDto schoolDto);
 
-    void deleteSchool(Long id);
+    void deleteSchool(String id);
 }

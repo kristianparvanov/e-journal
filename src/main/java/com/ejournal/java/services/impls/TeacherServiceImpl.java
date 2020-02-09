@@ -47,7 +47,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getById(final Long id) {
+    public Teacher getById(final String id) {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Teacher with id: %s, does not exist", id)));
     }

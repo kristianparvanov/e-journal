@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.upnetix.java</groupId>
-    <artifactId>plex-user-name</artifactId>
+    <groupId>com.ejournal.java</groupId>
+    <artifactId>e-journal</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Plex by User Name</name>
-    <description>Plex - Java EE practice project by User Name</description>
+    <name>E Journal</name>
+    <description>E Journal</description>
 
     <properties>
         <spring-boot-starter-web-version>2.2.1.RELEASE</spring-boot-starter-web-version>
@@ -25,6 +25,7 @@
         <passay-version>1.5.0</passay-version>
         <springfox-swagger2-version>2.9.2</springfox-swagger2-version>
         <springfox-swagger-ui-version>2.9.2</springfox-swagger-ui-version>
+        <flyway-core-version>6.2.2</flyway-core-version>
     </properties>
 
     <dependencies>
@@ -111,6 +112,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox-swagger-ui-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway-core-version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

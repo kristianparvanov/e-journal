@@ -54,13 +54,13 @@ public class SchoolController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public SchoolDto getSchool(@PathVariable Long id) {
+    public SchoolDto getSchool(@PathVariable String id) {
         return schoolService.getSchool(id);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponseDto deleteSchool(@PathVariable Long id) {
+    public ApiResponseDto deleteSchool(@PathVariable String id) {
         schoolService.deleteSchool(id);
 
         return new ApiResponseDto(true, "The school is deleted successfully!");

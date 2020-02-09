@@ -61,14 +61,14 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupDto getGroup(final Long id) {
+    public GroupDto getGroup(final String id) {
         return groupRepository.findById(id)
                 .map(groupMapper::groupToGroupDto)
                 .orElseThrow(GroupDoesNotExistException::new);
     }
 
     @Override
-    public Page<GroupDto> getAllGroups(final Long schoolId, final Pageable pageable) {
+    public Page<GroupDto> getAllGroups(final String schoolId, final Pageable pageable) {
         if (Objects.isNull(schoolId)) {
             return groupRepository.findAll(pageable)
                     .map(groupMapper::groupToGroupDto);
@@ -81,12 +81,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void deleteGroup(final Long id) {
+    public void deleteGroup(final String id) {
         groupRepository.deleteById(id);
     }
 
     @Override
-    public Group getById(Long id) {
+    public Group getById(String id) {
         return groupRepository.findById(id)
                 .orElseThrow(GroupDoesNotExistException::new);
     }

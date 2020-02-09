@@ -14,5 +14,5 @@ import lombok.Setter;
 public class TeacherRegisterDto extends RegisterRequestDto {
 
     @NotNull
-    private Long schoolId;
+    private String schoolId;
 }

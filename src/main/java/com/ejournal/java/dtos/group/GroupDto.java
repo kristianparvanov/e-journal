@@ -11,7 +11,7 @@ import lombok.Data;
 public class GroupDto {
 
     @NotNull
-    private Long id;
+    private String id;
     private Integer level;
     private String name;
     private Integer year;

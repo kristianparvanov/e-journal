@@ -14,10 +14,10 @@ import lombok.Setter;
 public class StudentRegisterDto extends RegisterRequestDto {
 
     @NotNull
-    private Long groupId;
+    private String groupId;
 
     @NotNull
-    private Long schoolId;
+    private String schoolId;
 
-    private Long parentId;
+    private String parentId;
 }

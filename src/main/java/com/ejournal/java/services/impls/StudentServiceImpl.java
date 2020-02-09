@@ -3,8 +3,6 @@ package com.ejournal.java.services.impls;
 import java.util.Collections;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.student.StudentRegisterDto;
@@ -51,13 +49,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getById(final Long id) {
+    public Student getById(final String id) {
         return studentRepository.findById(id)
                 .orElseThrow(StudentDoesNotExistException::new);
     }
 
     @Override
-    public List<Student> getByIdIn(final List<Long> ids) {
+    public List<Student> getByIdIn(final List<String > ids) {
         return studentRepository.findByIdIn(ids);
     }
 }

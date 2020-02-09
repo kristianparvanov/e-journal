@@ -13,7 +13,7 @@ public interface StudentService {
 
     ApiResponseDto register(StudentRegisterDto studentRegisterDto);
 
-    Student getById(Long id);
+    Student getById(String id);
 
-    List<Student> getByIdIn(List<Long> ids);
+    List<Student> getByIdIn(List<String > ids);
 }

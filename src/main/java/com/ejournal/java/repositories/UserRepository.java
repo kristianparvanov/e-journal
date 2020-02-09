@@ -10,7 +10,7 @@ import com.ejournal.java.entities.User;
  * Created by kristiyan.parvanov on 30.11.19 г.
  */
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, String > {
 
     Optional<User> findByUsername(String username);
 

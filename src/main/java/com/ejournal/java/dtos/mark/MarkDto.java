@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class MarkDto {
 
+    private String id;
     private LocalDate date;
     private SimpleSubjectDto subject;
     private SimpleTeacherDto teacher;

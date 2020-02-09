@@ -15,11 +15,11 @@ public interface GroupService {
 
     GroupDto updateGroup(GroupDto groupDto);
 
-    GroupDto getGroup(Long id);
+    GroupDto getGroup(String id);
 
-    Page<GroupDto> getAllGroups(Long schoolId, Pageable pageable);
+    Page<GroupDto> getAllGroups(String schoolId, Pageable pageable);
 
-    void deleteGroup(Long id);
+    void deleteGroup(String id);
 
-    Group getById(Long id);
+    Group getById(String id);
 }

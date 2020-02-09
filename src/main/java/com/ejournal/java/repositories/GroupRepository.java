@@ -9,7 +9,7 @@ import com.ejournal.java.entities.School;
 /**
  * Created by kristiyan.parvanov on 27.12.19 г.
  */
-public interface GroupRepository extends PagingAndSortingRepository<Group, Long> {
+public interface GroupRepository extends PagingAndSortingRepository<Group, String > {
 
     Page<Group> findBySchool(School school, Pageable pageable);
 }

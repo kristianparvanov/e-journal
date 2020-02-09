@@ -64,7 +64,7 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public Page<MarkDto> getByStudent(Long studentId, Pageable pageable) {
+    public Page<MarkDto> getByStudent(String studentId, Pageable pageable) {
         if (Objects.isNull(studentId)) {
             if (!authenticationService.hasRole(RoleName.ROLE_STUDENT)) {
                 throw new RuntimeException("NQMA PYK");
@@ -84,7 +84,7 @@ public class MarkServiceImpl implements MarkService {
                 .map(markMapper::markToMarkDto);
     }
 
-    private Page<MarkDto> getMarksForStudent(final Long studentId, final Pageable pageable) {
+    private Page<MarkDto> getMarksForStudent(final String studentId, final Pageable pageable) {
         final Student student = studentService.getById(studentId);
 
         return markRepository.getByStudent(student, pageable)

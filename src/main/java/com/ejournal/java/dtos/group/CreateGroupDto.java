@@ -26,5 +26,5 @@ public class CreateGroupDto {
     private Integer year;
 
     @NotNull
-    private Long schoolId;
+    private String schoolId;
 }

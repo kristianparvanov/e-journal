@@ -54,13 +54,13 @@ public class SubjectController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public SubjectDto getSubject(@PathVariable Long id) {
+    public SubjectDto getSubject(@PathVariable String id) {
         return subjectService.getSubject(id);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponseDto deleteSubject(@PathVariable Long id) {
+    public ApiResponseDto deleteSubject(@PathVariable String id) {
         subjectService.deleteSubject(id);
 
         return new ApiResponseDto(true, "The Subject is deleted successfully!");

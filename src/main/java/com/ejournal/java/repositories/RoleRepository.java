@@ -9,7 +9,7 @@ import com.ejournal.java.enums.RoleName;
 /**
  * Created by kristiyan.parvanov on 13.12.19 г.
  */
-public interface RoleRepository extends CrudRepository<Role, Long> {
+public interface RoleRepository extends CrudRepository<Role, String > {
 
     Optional<Role> findByName(RoleName name);
 }

@@ -2,8 +2,6 @@ package com.ejournal.java.services.impls;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import com.ejournal.java.dtos.ApiResponseDto;
@@ -52,7 +50,7 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public ApiResponseDto delete(final Long id) {
+    public ApiResponseDto delete(final String id) {
         final Parent parent = parentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Parent with id: %s doesn't exist", id)));
 

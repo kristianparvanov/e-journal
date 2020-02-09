@@ -32,7 +32,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserById(final Long id) {
+    public UserDetails loadUserById(final String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User not found with id: %s", id)));
 

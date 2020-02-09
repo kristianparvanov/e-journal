@@ -18,11 +18,11 @@ public class CreateMarkDto {
     private Integer mark;
 
     @NotNull
-    private Long subjectId;
+    private String subjectId;
 
     @NotNull
-    private Long studentId;
+    private String studentId;
 
     @NotNull
-    private Long teacherId;
+    private String teacherId;
 }

@@ -17,7 +17,7 @@ public interface MarkService {
 
     MarkDto updateMark(UpdateMarkDto updateMarkDto);
 
-    Page<MarkDto> getByStudent(Long studentId, Pageable pageable);
+    Page<MarkDto> getByStudent(String studentId, Pageable pageable);
 
     Page<MarkDto> getByStudentAndSubject(Subject subject, Pageable pageable);
 }

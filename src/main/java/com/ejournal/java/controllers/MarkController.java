@@ -46,7 +46,7 @@ public class MarkController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'PARENT', 'STUDENT')")
-    public Page<MarkDto> getByStudent(@RequestParam(required = false) Long studentId, Pageable pageable) {
+    public Page<MarkDto> getByStudent(@RequestParam(required = false) String studentId, Pageable pageable) {
         return markService.getByStudent(studentId, pageable);
     }
 }

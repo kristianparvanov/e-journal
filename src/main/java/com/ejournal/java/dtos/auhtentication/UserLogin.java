@@ -1,4 +1,4 @@
-package com.ejournal.java.entities;
+package com.ejournal.java.dtos.auhtentication;
 
 public class UserLogin {
 

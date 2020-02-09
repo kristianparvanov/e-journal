@@ -8,7 +8,7 @@ import com.ejournal.java.entities.School;
 /**
  * Created by kristiyan.parvanov on 27.12.19 г.
  */
-public interface SchoolRepository extends PagingAndSortingRepository<School, Long> {
+public interface SchoolRepository extends PagingAndSortingRepository<School, String > {
 
     boolean existsByCityAndName(String city, String name);
 

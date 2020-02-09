@@ -15,11 +15,11 @@ public interface SubjectService {
 
     SubjectDto updateSubject(SubjectDto subjectDto);
 
-    Subject getById(Long id);
+    Subject getById(String id);
 
-    SubjectDto getSubject(Long id);
+    SubjectDto getSubject(String id);
 
     Page<SubjectDto> getAllSubjects(String name, Pageable pageable);
 
-    void deleteSubject(Long id);
+    void deleteSubject(String id);
 }

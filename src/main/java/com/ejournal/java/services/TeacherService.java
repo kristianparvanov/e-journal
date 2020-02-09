@@ -11,5 +11,5 @@ public interface TeacherService {
 
     ApiResponseDto register(TeacherRegisterDto studentRegisterDto);
 
-    Teacher getById(Long id);
+    Teacher getById(String id);
 }

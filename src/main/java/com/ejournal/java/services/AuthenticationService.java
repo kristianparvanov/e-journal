@@ -21,7 +21,7 @@ public interface AuthenticationService {
 
     UserPrincipal getUserPrincipal();
 
-    Long getCurrentUserId();
+    String getCurrentUserId();
 
     boolean hasRole(RoleName roleName);
 }

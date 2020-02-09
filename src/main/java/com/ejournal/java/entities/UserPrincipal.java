@@ -22,7 +22,7 @@ import lombok.Getter;
 @EqualsAndHashCode(of = {"id"})
 public class UserPrincipal implements UserDetails {
 
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -36,7 +36,7 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserPrincipal create(final Long id, final List<String> roles) {
+    public static UserPrincipal create(final String id, final List<String> roles) {
         List<GrantedAuthority> authorities = roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -54,7 +54,6 @@ public class UserPrincipal implements UserDetails {
 
         return UserPrincipal.builder()
                 .id(user.getId())
-//                .name(user.getName())
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .password(user.getPassword())

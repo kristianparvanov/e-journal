@@ -41,13 +41,13 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject getById(final Long id) {
+    public Subject getById(final String id) {
         return subjectRepository.findById(id)
                 .orElseThrow(SubjectDoesNotExistException::new);
     }
 
     @Override
-    public SubjectDto getSubject(final Long id) {
+    public SubjectDto getSubject(final String id) {
         return subjectRepository.findById(id)
                 .map(subjectMapper::subjectToSubjectDto)
                 .orElseThrow(SubjectDoesNotExistException::new);
@@ -65,7 +65,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void deleteSubject(final Long id) {
+    public void deleteSubject(final String id) {
         subjectRepository.deleteById(id);
     }
 }

@@ -86,7 +86,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Long getCurrentUserId() {
+    public String getCurrentUserId() {
         return getUserPrincipal().getId();
     }
 

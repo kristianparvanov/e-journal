@@ -48,19 +48,19 @@ public class GroupController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN')")
-    public Page<GroupDto> getAllGroups(@RequestParam(required = false) Long schoolId, Pageable pageable) {
+    public Page<GroupDto> getAllGroups(@RequestParam(required = false) String schoolId, Pageable pageable) {
         return groupService.getAllGroups(schoolId, pageable);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public GroupDto getGroup(@PathVariable Long id) {
+    public GroupDto getGroup(@PathVariable String id) {
         return groupService.getGroup(id);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponseDto deleteGroup(@PathVariable Long id) {
+    public ApiResponseDto deleteGroup(@PathVariable String id) {
         groupService.deleteGroup(id);
 
         return new ApiResponseDto(true, "The Group is deleted successfully!");

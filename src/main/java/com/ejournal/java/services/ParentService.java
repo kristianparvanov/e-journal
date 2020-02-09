@@ -11,5 +11,5 @@ public interface ParentService {
 
     ParentDto register(ParentRegisterDto parentRegisterDto);
 
-    ApiResponseDto delete(Long id);
+    ApiResponseDto delete(String id);
 }

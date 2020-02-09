@@ -12,7 +12,7 @@ import com.ejournal.java.entities.Subject;
 /**
  * Created by kristiyan.parvanov on 5.01.20 г.
  */
-public interface MarkRepository extends PagingAndSortingRepository<Mark, Long> {
+public interface MarkRepository extends PagingAndSortingRepository<Mark, String > {
 
     Page<Mark> getByStudentAndSubject(Student student, Subject subject, Pageable pageable);
 

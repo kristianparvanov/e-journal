@@ -11,7 +11,7 @@ import lombok.Data;
 public class SubjectDto {
 
     @NotNull
-    private Long id;
+    private String id;
     private String name;
     private String description;
 }

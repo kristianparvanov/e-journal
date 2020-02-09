@@ -15,5 +15,5 @@ import lombok.Setter;
 public class ParentRegisterDto extends RegisterRequestDto {
 
     @NotNull
-    private List<Long> studentId;
+    private List<String > studentId;
 }
