@@ -1,4 +1,4 @@
-INSERT INTO `ejournal1`.`roles` (`id`, `name`)
+INSERT INTO `ejournal`.`roles` (`id`, `name`)
 VALUES
 ('eaaca79b-cc71-45cc-9faa-2c7ed6ea6927', 'ROLE_ADMIN'),
 ('2fb145de-92ee-418d-84a0-371c523fd3e9', 'ROLE_DIRECTOR'),
