@@ -20,13 +20,8 @@ import lombok.Setter;
 @Setter
 public class Leave extends StudentMetric {
 
-    @Column(name = "leave_date")
-    private LocalDate leaveDate;
-
     @Builder
-    public Leave(LocalDate modificationDate, Subject subject, Student student, Teacher teacher, LocalDate leaveDate) {
+    public Leave(final LocalDate modificationDate, final Subject subject, final Student student, final Teacher teacher) {
         super(null, modificationDate, subject, student, teacher);
-
-        this.leaveDate = leaveDate;
     }
 }

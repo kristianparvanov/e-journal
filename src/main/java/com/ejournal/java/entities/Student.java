@@ -3,7 +3,6 @@ package com.ejournal.java.entities;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -50,4 +49,7 @@ public class Student extends User {
 
     @OneToMany(mappedBy = "student")
     private List<Mark> marks;
+
+    @OneToMany(mappedBy = "student")
+    private List<Leave> leaves;
 }

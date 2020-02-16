@@ -3,6 +3,8 @@ package com.ejournal.java.dtos.student;
 import java.util.List;
 
 import com.ejournal.java.dtos.group.GroupDto;
+import com.ejournal.java.dtos.leave.LeaveDto;
+import com.ejournal.java.dtos.mark.MarkDto;
 import com.ejournal.java.dtos.parent.ParentDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import lombok.Data;
@@ -20,4 +22,6 @@ public class StudentInfoDto {
     private SchoolDto school;
     private GroupDto group;
     private List<ParentDto> parents;
+    private List<MarkDto> marks;
+    private List<LeaveDto> leaves;
 }

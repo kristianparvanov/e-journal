@@ -16,48 +16,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.ejournal.java.dtos.ApiResponseDto;
-import com.ejournal.java.dtos.mark.CreateMarkDto;
-import com.ejournal.java.dtos.mark.MarkDto;
-import com.ejournal.java.dtos.mark.UpdateMarkDto;
-import com.ejournal.java.services.MarkService;
+import com.ejournal.java.dtos.leave.CreateLeaveDto;
+import com.ejournal.java.dtos.leave.LeaveDto;
+import com.ejournal.java.dtos.leave.UpdateLeaveDto;
+import com.ejournal.java.services.LeaveService;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Created by kristiyan.parvanov on 6.01.20 г.
  */
 @RestController
-@RequestMapping("/api/marks")
+@RequestMapping("/api/leaves")
 @RequiredArgsConstructor
-public class MarkController {
+public class LeaveController {
 
-    private final MarkService markService;
+    private final LeaveService leaveService;
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
-    public MarkDto create(@Valid @RequestBody CreateMarkDto createMarkDto) {
-        return markService.createMark(createMarkDto);
+    public LeaveDto create(@Valid @RequestBody CreateLeaveDto createLeaveDto) {
+        return leaveService.createLeave(createLeaveDto);
     }
 
     @PostMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
-    public MarkDto update(@Valid @RequestBody UpdateMarkDto updateMarkDto) {
-        return markService.updateMark(updateMarkDto);
+    public LeaveDto update(@Valid @RequestBody UpdateLeaveDto updateLeaveDto) {
+        return leaveService.updateLeave(updateLeaveDto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'PARENT', 'STUDENT')")
-    public Page<MarkDto> getByStudent(@RequestParam(required = false) String studentId, Pageable pageable) {
-        return markService.getByStudent(studentId, pageable);
+    public Page<LeaveDto> getByStudent(@RequestParam(required = false) String studentId, Pageable pageable) {
+        return leaveService.getByStudent(studentId, pageable);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
-    public ApiResponseDto deleteMark(@PathVariable String id) {
-        return markService.deleteMark(id);
+    public ApiResponseDto deleteLeave(@PathVariable String id) {
+        return leaveService.deleteLeave(id);
     }
-
 }

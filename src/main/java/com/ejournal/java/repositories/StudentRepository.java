@@ -17,7 +17,7 @@ public interface StudentRepository extends PagingAndSortingRepository<Student, S
 
     String STUDENTS_BY_NAME = "FROM students s "
             + "LEFT JOIN users u ON s.id = u.id "
-            + "WHERE CONCAT_WS(' ', u.first_name, u.middle_name, u.last_name) LIKE CONCAT('%', :name, '%')";
+            + "WHERE UPPER(CONCAT_WS(' ', u.first_name, u.middle_name, u.last_name)) LIKE UPPER(CONCAT('%', :name, '%'))";
 
     String FIND_STUDENTS_BY_NAME = "SELECT * "
             + STUDENTS_BY_NAME

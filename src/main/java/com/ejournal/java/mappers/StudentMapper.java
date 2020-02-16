@@ -17,7 +17,7 @@ import com.ejournal.java.entities.Student;
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {SchoolMapper.class, ParentMapper.class, GroupMapper.class}
+        uses = {SchoolMapper.class, ParentMapper.class, GroupMapper.class, MarkMapper.class, LeaveMapper.class}
 )
 public abstract class StudentMapper {
 
@@ -29,6 +29,7 @@ public abstract class StudentMapper {
     @Mapping(target = "group", ignore = true)
     @Mapping(target = "parents", ignore = true)
     @Mapping(target = "marks", ignore = true)
+    @Mapping(target = "leaves", ignore = true)
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(studentRegisterDto.getEgn()))")
     public abstract Student studentRegisterDtoToStudent(StudentRegisterDto studentRegisterDto);

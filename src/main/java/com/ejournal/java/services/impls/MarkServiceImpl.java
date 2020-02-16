@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.mark.CreateMarkDto;
 import com.ejournal.java.dtos.mark.MarkDto;
 import com.ejournal.java.dtos.mark.UpdateMarkDto;
@@ -14,6 +15,7 @@ import com.ejournal.java.entities.Student;
 import com.ejournal.java.entities.Subject;
 import com.ejournal.java.entities.Teacher;
 import com.ejournal.java.enums.RoleName;
+import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.exceptions.MissingPropertiesException;
 import com.ejournal.java.mappers.MarkMapper;
 import com.ejournal.java.repositories.MarkRepository;
@@ -82,6 +84,16 @@ public class MarkServiceImpl implements MarkService {
 
         return markRepository.getByStudentAndSubject(student, subject, pageable)
                 .map(markMapper::markToMarkDto);
+    }
+
+    @Override
+    public ApiResponseDto deleteMark(final String id) {
+        final Mark mark = markRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Mark with id: '%s' doesn't exist", id)));
+
+        markRepository.delete(mark);
+
+        return new ApiResponseDto(true, "The leave is deleted successfully!");
     }
 
     private Page<MarkDto> getMarksForStudent(final String studentId, final Pageable pageable) {

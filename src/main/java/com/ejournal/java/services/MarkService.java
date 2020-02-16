@@ -2,10 +2,10 @@ package com.ejournal.java.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.mark.CreateMarkDto;
 import com.ejournal.java.dtos.mark.MarkDto;
 import com.ejournal.java.dtos.mark.UpdateMarkDto;
-import com.ejournal.java.entities.Mark;
 import com.ejournal.java.entities.Subject;
 
 /**
@@ -20,4 +20,6 @@ public interface MarkService {
     Page<MarkDto> getByStudent(String studentId, Pageable pageable);
 
     Page<MarkDto> getByStudentAndSubject(Subject subject, Pageable pageable);
+
+    ApiResponseDto deleteMark(String id);
 }

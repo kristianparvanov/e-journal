@@ -14,7 +14,7 @@ public interface TeacherRepository extends PagingAndSortingRepository<Teacher, S
 
     String TEACHERS_BY_NAME = "FROM teachers t "
             + "LEFT JOIN users u ON t.id = u.id "
-            + "WHERE CONCAT_WS(' ', u.first_name, u.middle_name, u.last_name) LIKE CONCAT('%', :name, '%')";
+            + "WHERE UPPER(CONCAT_WS(' ', u.first_name, u.middle_name, u.last_name)) LIKE UPPER(CONCAT('%', :name, '%'))";
 
     String FIND_TEACHERS_BY_NAME = "SELECT * "
             + TEACHERS_BY_NAME
