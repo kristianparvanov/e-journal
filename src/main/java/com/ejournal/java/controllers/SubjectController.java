@@ -34,7 +34,7 @@ public class SubjectController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
-    public SubjectDto createGroup(@Valid @RequestBody CreateSubjectDto createSubjectDto) {
+    public SubjectDto createSubject(@Valid @RequestBody CreateSubjectDto createSubjectDto) {
         return subjectService.createSubject(createSubjectDto);
     }
 

@@ -17,5 +17,5 @@ public interface TeacherService {
 
     TeacherInfoDto getTeacher(String id);
 
-    Page<TeacherInfoDto> getTeachers(String lastName, Pageable pageable);
+    Page<TeacherInfoDto> getTeachers(String name, Pageable pageable);
 }

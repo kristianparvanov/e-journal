@@ -31,8 +31,8 @@ public class TeacherController {
 
     @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public TeacherInfoDto registerStudent(@Valid @RequestBody TeacherRegisterDto teacherRegisterDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public TeacherInfoDto registerTeacher(@Valid @RequestBody TeacherRegisterDto teacherRegisterDto) {
         return teacherService.register(teacherRegisterDto);
     }
 
@@ -46,7 +46,7 @@ public class TeacherController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<TeacherInfoDto> getTeachers(@RequestParam(required = false) String lastName, Pageable pageable) {
-        return teacherService.getTeachers(lastName, pageable);
+    public Page<TeacherInfoDto> getTeachers(@RequestParam(required = false) String name, Pageable pageable) {
+        return teacherService.getTeachers(name, pageable);
     }
 }

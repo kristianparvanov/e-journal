@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.ejournal.java.dtos.student.StudentInfoDto;
 import com.ejournal.java.dtos.student.StudentRegisterDto;
 import com.ejournal.java.entities.Student;
 
@@ -15,7 +16,8 @@ import com.ejournal.java.entities.Student;
 @Mapper(
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = {SchoolMapper.class, ParentMapper.class, GroupMapper.class}
 )
 public abstract class StudentMapper {
 
@@ -30,4 +32,6 @@ public abstract class StudentMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(studentRegisterDto.getEgn()))")
     public abstract Student studentRegisterDtoToStudent(StudentRegisterDto studentRegisterDto);
+
+    public abstract StudentInfoDto studentToStudentInfoDto(Student student);
 }

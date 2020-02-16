@@ -1,10 +1,15 @@
 package com.ejournal.java.services.impls;
 
+import static com.ejournal.java.utils.Util.formatName;
+
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.ejournal.java.dtos.ApiResponseDto;
+import com.ejournal.java.dtos.student.StudentInfoDto;
 import com.ejournal.java.dtos.student.StudentRegisterDto;
 import com.ejournal.java.entities.Group;
 import com.ejournal.java.entities.Student;
@@ -31,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper studentMapper;
 
     @Override
-    public ApiResponseDto register(final StudentRegisterDto studentRegisterDto) {
+    public StudentInfoDto register(final StudentRegisterDto studentRegisterDto) {
         if (studentRepository.existsByEmail(studentRegisterDto.getEmail())) {
             throw new UserExistsException();
         }
@@ -43,9 +48,7 @@ public class StudentServiceImpl implements StudentService {
         student.setGroup(group);
         student.setSchool(group.getSchool());
 
-        studentRepository.save(student);
-
-        return new ApiResponseDto(true, "Student is registered successfully");
+        return studentMapper.studentToStudentInfoDto(studentRepository.save(student));
     }
 
     @Override
@@ -57,5 +60,27 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getByIdIn(final List<String > ids) {
         return studentRepository.findByIdIn(ids);
+    }
+
+    @Override
+    public StudentInfoDto getStudent(final String id) {
+        return studentMapper.studentToStudentInfoDto(getById(id));
+    }
+
+    @Override
+    public Page<StudentInfoDto> getStudents(final String name, final Pageable pageable) {
+        if (StringUtils.isNotBlank(name)) {
+            return studentRepository.findStudentsByName(formatName(name), pageable)
+                    .map(studentMapper::studentToStudentInfoDto);
+        }
+
+        return studentRepository.findAll(pageable)
+                .map(studentMapper::studentToStudentInfoDto);
+    }
+
+    @Override
+    public Page<StudentInfoDto> getStudentsByGroup(final String id, Pageable pageable) {
+        return studentRepository.findByGroup(groupService.getById(id), pageable)
+                .map(studentMapper::studentToStudentInfoDto);
     }
 }

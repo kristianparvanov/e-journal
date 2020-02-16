@@ -86,7 +86,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group getById(String id) {
+    public Group getById(final String id) {
         return groupRepository.findById(id)
                 .orElseThrow(GroupDoesNotExistException::new);
     }

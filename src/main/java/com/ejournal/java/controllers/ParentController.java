@@ -29,8 +29,8 @@ public class ParentController {
 
     @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.OK)
-    public ParentDto registerStudent(@Valid @RequestBody ParentRegisterDto parentRegisterDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ParentDto registerParent(@Valid @RequestBody ParentRegisterDto parentRegisterDto) {
         return parentService.register(parentRegisterDto);
     }
 

@@ -1,5 +1,7 @@
 package com.ejournal.java.services.impls;
 
+import static com.ejournal.java.utils.Util.formatName;
+
 import java.util.Collections;
 
 import org.apache.commons.lang3.StringUtils;
@@ -59,9 +61,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Page<TeacherInfoDto> getTeachers(final String lastName, final Pageable pageable) {
-        if (StringUtils.isNotBlank(lastName)) {
-            return teacherRepository.findByLastNameContaining(lastName, pageable)
+    public Page<TeacherInfoDto> getTeachers(final String name, final Pageable pageable) {
+        if (StringUtils.isNotBlank(name)) {
+            return teacherRepository.findTeachersByName(formatName(name), pageable)
                     .map(teacherMapper::teacherToTeacherInfoDto);
         }
 
