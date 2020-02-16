@@ -7,6 +7,7 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ejournal.java.dtos.teacher.SimpleTeacherDto;
+import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
 import com.ejournal.java.entities.Teacher;
 
@@ -16,7 +17,8 @@ import com.ejournal.java.entities.Teacher;
 @Mapper(
         componentModel = "spring",
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = SchoolMapper.class
 )
 public abstract class TeacherMapper {
 
@@ -32,4 +34,6 @@ public abstract class TeacherMapper {
     public abstract Teacher teacherRegisterDtoToTeacher(TeacherRegisterDto teacherRegisterDto);
 
     public abstract SimpleTeacherDto teacherToSimpleTeacherDto(Teacher teacher);
+
+    public abstract TeacherInfoDto teacherToTeacherInfoDto(Teacher teacher);
 }

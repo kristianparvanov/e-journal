@@ -1,6 +1,8 @@
 package com.ejournal.java.services;
 
-import com.ejournal.java.dtos.ApiResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
 import com.ejournal.java.entities.Teacher;
 
@@ -9,7 +11,11 @@ import com.ejournal.java.entities.Teacher;
  */
 public interface TeacherService {
 
-    ApiResponseDto register(TeacherRegisterDto studentRegisterDto);
+    TeacherInfoDto register(TeacherRegisterDto studentRegisterDto);
 
     Teacher getById(String id);
+
+    TeacherInfoDto getTeacher(String id);
+
+    Page<TeacherInfoDto> getTeachers(String lastName, Pageable pageable);
 }

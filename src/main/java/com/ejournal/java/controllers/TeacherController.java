@@ -2,17 +2,20 @@ package com.ejournal.java.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.ejournal.java.dtos.ApiResponseDto;
-import com.ejournal.java.dtos.student.StudentRegisterDto;
+import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
-import com.ejournal.java.services.StudentService;
 import com.ejournal.java.services.TeacherService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +32,21 @@ public class TeacherController {
     @PostMapping("/register")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponseDto registerStudent(@Valid @RequestBody TeacherRegisterDto teacherRegisterDto) {
+    public TeacherInfoDto registerStudent(@Valid @RequestBody TeacherRegisterDto teacherRegisterDto) {
         return teacherService.register(teacherRegisterDto);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public TeacherInfoDto getTeacher(@PathVariable String id) {
+        return teacherService.getTeacher(id);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<TeacherInfoDto> getTeachers(@RequestParam(required = false) String lastName, Pageable pageable) {
+        return teacherService.getTeachers(lastName, pageable);
     }
 }

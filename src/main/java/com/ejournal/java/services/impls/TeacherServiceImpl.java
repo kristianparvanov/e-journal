@@ -2,8 +2,11 @@ package com.ejournal.java.services.impls;
 
 import java.util.Collections;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.ejournal.java.dtos.ApiResponseDto;
+import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
 import com.ejournal.java.entities.School;
 import com.ejournal.java.entities.Teacher;
@@ -30,7 +33,7 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherMapper teacherMapper;
 
     @Override
-    public ApiResponseDto register(final TeacherRegisterDto teacherRegisterDto) {
+    public TeacherInfoDto register(final TeacherRegisterDto teacherRegisterDto) {
         if (teacherRepository.existsByEmail(teacherRegisterDto.getEmail())) {
             throw new UserExistsException();
         }
@@ -41,14 +44,28 @@ public class TeacherServiceImpl implements TeacherService {
         final School school = schoolService.getById(teacherRegisterDto.getSchoolId());
         teacher.setSchool(school);
 
-        teacherRepository.save(teacher);
-
-        return new ApiResponseDto(true, "Student is registered successfully");
+        return teacherMapper.teacherToTeacherInfoDto(teacherRepository.save(teacher));
     }
 
     @Override
     public Teacher getById(final String id) {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Teacher with id: %s, does not exist", id)));
+    }
+
+    @Override
+    public TeacherInfoDto getTeacher(final String id) {
+        return teacherMapper.teacherToTeacherInfoDto(getById(id));
+    }
+
+    @Override
+    public Page<TeacherInfoDto> getTeachers(final String lastName, final Pageable pageable) {
+        if (StringUtils.isNotBlank(lastName)) {
+            return teacherRepository.findByLastNameContaining(lastName, pageable)
+                    .map(teacherMapper::teacherToTeacherInfoDto);
+        }
+
+        return teacherRepository.findAll(pageable)
+                .map(teacherMapper::teacherToTeacherInfoDto);
     }
 }
