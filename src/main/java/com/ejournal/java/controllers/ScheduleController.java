@@ -61,28 +61,28 @@ public class ScheduleController {
         return scheduleService.deleteSchedule(id);
     }
 
-    @PostMapping("/day-item/create")
+    @PostMapping("/day/create")
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @ResponseStatus(HttpStatus.CREATED)
     public ScheduleDayDto createScheduleDay(@RequestBody CreateScheduleDayDto createScheduleDayDto) {
         return scheduleService.createScheduleDay(createScheduleDayDto);
     }
 
-    @GetMapping("/day-item")
+    @GetMapping("/day")
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @ResponseStatus(HttpStatus.OK)
     public ScheduleDayDto getScheduleDay(@Valid GetScheduleDayDto getScheduleDayDto) {
         return scheduleService.getScheduleDay(getScheduleDayDto);
     }
 
-    @PostMapping("/day-item/update")
+    @PostMapping("/day/update")
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @ResponseStatus(HttpStatus.OK)
     public ScheduleDayDto updateScheduleDay(@Valid @RequestBody UpdateScheduleDayDto updateScheduleDayDto) {
         return scheduleService.updateScheduleDay(updateScheduleDayDto);
     }
 
-    @DeleteMapping("/day-item")
+    @DeleteMapping("/day")
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto deleteScheduleDay(@Valid GetScheduleDayDto getScheduleDayDto) {
