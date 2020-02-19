@@ -21,6 +21,7 @@ public interface SubjectMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "marks", ignore = true)
+    @Mapping(target = "days", ignore = true)
     Subject createSubjectDtoToSubject(CreateSubjectDto createSubjectDto);
 
     SubjectDto subjectToSubjectDto(Subject subject);
@@ -28,6 +29,7 @@ public interface SubjectMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "marks", ignore = true)
+    @Mapping(target = "days", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     Subject updateSubject(SubjectDto subjectDto, @MappingTarget Subject subject);

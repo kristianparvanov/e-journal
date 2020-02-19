@@ -36,6 +36,7 @@ public class ParentController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
     public ApiResponseDto delete(@PathVariable String id) {
         return parentService.delete(id);
     }

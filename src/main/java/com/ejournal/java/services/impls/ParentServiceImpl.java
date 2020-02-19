@@ -52,7 +52,7 @@ public class ParentServiceImpl implements ParentService {
     @Override
     public ApiResponseDto delete(final String id) {
         final Parent parent = parentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Parent with id: %s doesn't exist", id)));
+                .orElseThrow(() -> new EntityNotFoundException("Parent", id));
 
         final List<Student> students = parent.getStudents();
         students.forEach(student -> student.getParents().remove(parent));

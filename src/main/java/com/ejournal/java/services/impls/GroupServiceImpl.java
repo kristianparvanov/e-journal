@@ -10,8 +10,8 @@ import com.ejournal.java.dtos.group.CreateGroupDto;
 import com.ejournal.java.dtos.group.GroupDto;
 import com.ejournal.java.entities.Group;
 import com.ejournal.java.entities.School;
-import com.ejournal.java.exceptions.GroupDoesNotExistException;
-import com.ejournal.java.exceptions.MissingGroupUpdateProperties;
+import com.ejournal.java.exceptions.EntityNotFoundException;
+import com.ejournal.java.exceptions.MissingPropertiesException;
 import com.ejournal.java.mappers.GroupMapper;
 import com.ejournal.java.repositories.GroupRepository;
 import com.ejournal.java.services.GroupService;
@@ -24,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
+
+    private static final String GROUP = "Group";
 
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
@@ -42,11 +44,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDto updateGroup(final GroupDto groupDto) {
         if (!canUpdate(groupDto)) {
-            throw new MissingGroupUpdateProperties();
+            throw new MissingPropertiesException(GROUP);
         }
 
-        final Group group = groupRepository.findById(groupDto.getId())
-                .orElseThrow(GroupDoesNotExistException::new);
+        final Group group = getById(groupDto.getId());
 
         return groupMapper.groupToGroupDto(groupMapper.updateGroup(groupDto, group));
     }
@@ -62,9 +63,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupDto getGroup(final String id) {
-        return groupRepository.findById(id)
-                .map(groupMapper::groupToGroupDto)
-                .orElseThrow(GroupDoesNotExistException::new);
+        return groupMapper.groupToGroupDto(getById(id));
     }
 
     @Override
@@ -88,6 +87,6 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group getById(final String id) {
         return groupRepository.findById(id)
-                .orElseThrow(GroupDoesNotExistException::new);
+                .orElseThrow(() -> new EntityNotFoundException(GROUP, id));
     }
 }

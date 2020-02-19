@@ -30,6 +30,7 @@ public abstract class TeacherMapper {
     @Mapping(target = "school", ignore = true)
     @Mapping(target = "groups", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "days", ignore = true)
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(teacherRegisterDto.getEgn()))")
     public abstract Teacher teacherRegisterDtoToTeacher(TeacherRegisterDto teacherRegisterDto);
 

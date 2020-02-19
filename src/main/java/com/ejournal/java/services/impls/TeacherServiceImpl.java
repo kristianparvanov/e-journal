@@ -13,8 +13,8 @@ import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
 import com.ejournal.java.entities.School;
 import com.ejournal.java.entities.Teacher;
 import com.ejournal.java.enums.RoleName;
+import com.ejournal.java.exceptions.EntityExistsException;
 import com.ejournal.java.exceptions.EntityNotFoundException;
-import com.ejournal.java.exceptions.UserExistsException;
 import com.ejournal.java.mappers.TeacherMapper;
 import com.ejournal.java.repositories.TeacherRepository;
 import com.ejournal.java.services.RoleService;
@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 
+    private static final String TEACHER = "Teacher";
+
     private final TeacherRepository teacherRepository;
     private final RoleService roleService;
     private final SchoolService schoolService;
@@ -37,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherInfoDto register(final TeacherRegisterDto teacherRegisterDto) {
         if (teacherRepository.existsByEmail(teacherRegisterDto.getEmail())) {
-            throw new UserExistsException();
+            throw new EntityExistsException(TEACHER);
         }
 
         final Teacher teacher = teacherMapper.teacherRegisterDtoToTeacher(teacherRegisterDto);
@@ -52,7 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher getById(final String id) {
         return teacherRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Teacher with id: %s, does not exist", id)));
+                .orElseThrow(() -> new EntityNotFoundException(TEACHER, id));
     }
 
     @Override

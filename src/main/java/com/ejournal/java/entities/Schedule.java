@@ -1,7 +1,7 @@
 package com.ejournal.java.entities;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,20 +16,22 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Created by kristiyan.parvanov on 26.12.19 г.
+ * Created by kristiyan.parvanov on 17.02.20 г.
  */
 @Entity
-@Table(name = "groups")
+@Table(name = "schedules")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Group {
+@Builder
+public class Schedule {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -40,25 +41,13 @@ public class Group {
     )
     private String id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "level")
-    private int level;
-
-    @Column(name = "year")
-    private int year;
+    @Column(name = "from_date")
+    private LocalDate fromDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id", referencedColumnName = "id")
-    private School school;
+    @JoinColumn(name = "group_id")
+    private Group group;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Student> students;
-
-    @ManyToMany(mappedBy = "groups")
-    private Set<Teacher> teachers;
-
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Schedule> schedule;
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DayItem> days;
 }

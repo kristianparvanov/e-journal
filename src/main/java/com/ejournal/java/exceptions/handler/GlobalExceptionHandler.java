@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.ejournal.java.dtos.ApiResponseDto;
+import com.ejournal.java.exceptions.EntityExistsException;
 import com.ejournal.java.exceptions.EntityNotFoundException;
-import com.ejournal.java.exceptions.MissingSchoolUpdateProperties;
-import com.ejournal.java.exceptions.SchoolDoesNotExistException;
-import com.ejournal.java.exceptions.SchoolExistsException;
-import com.ejournal.java.exceptions.UserExistsException;
+import com.ejournal.java.exceptions.MissingPropertiesException;
 import com.ejournal.java.exceptions.UserRoleNotSetException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({ UserExistsException.class, UserRoleNotSetException.class, EntityNotFoundException.class,
-            SchoolExistsException.class, SchoolDoesNotExistException.class, MissingSchoolUpdateProperties.class })
+    @ExceptionHandler({ UserRoleNotSetException.class, EntityNotFoundException.class,
+            MissingPropertiesException.class, EntityExistsException.class })
     public ApiResponseDto userAlreadyExists(Exception exception) {
         log.info(exception.getMessage(), exception);
 

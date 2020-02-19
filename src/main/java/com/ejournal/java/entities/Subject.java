@@ -2,6 +2,7 @@ package com.ejournal.java.entities;
 
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,9 +42,12 @@ public class Subject {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mark> marks;
 
     @ManyToMany(mappedBy = "subjects")
     private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DayItem> days;
 }

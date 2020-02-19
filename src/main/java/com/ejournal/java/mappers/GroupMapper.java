@@ -20,6 +20,8 @@ public interface GroupMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "students", ignore = true)
+    @Mapping(target = "school", ignore = true)
+    @Mapping(target = "schedule", ignore = true)
     Group createGroupToGroup(CreateGroupDto createGroupDto);
 
     GroupDto groupToGroupDto(Group group);
@@ -28,6 +30,7 @@ public interface GroupMapper {
     @Mapping(target = "school", ignore = true)
     @Mapping(target = "teachers", ignore = true)
     @Mapping(target = "students", ignore = true)
+    @Mapping(target = "schedule", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     Group updateGroup(GroupDto groupDto, @MappingTarget Group group);

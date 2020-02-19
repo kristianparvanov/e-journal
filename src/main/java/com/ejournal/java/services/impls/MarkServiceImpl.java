@@ -89,7 +89,7 @@ public class MarkServiceImpl implements MarkService {
     @Override
     public ApiResponseDto deleteMark(final String id) {
         final Mark mark = markRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Mark with id: '%s' doesn't exist", id)));
+                .orElseThrow(() -> new EntityNotFoundException("Mark", id));
 
         markRepository.delete(mark);
 

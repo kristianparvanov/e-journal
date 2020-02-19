@@ -8,9 +8,9 @@ import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.school.CreateSchoolDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.entities.School;
-import com.ejournal.java.exceptions.MissingSchoolUpdateProperties;
-import com.ejournal.java.exceptions.SchoolDoesNotExistException;
-import com.ejournal.java.exceptions.SchoolExistsException;
+import com.ejournal.java.exceptions.EntityExistsException;
+import com.ejournal.java.exceptions.EntityNotFoundException;
+import com.ejournal.java.exceptions.MissingPropertiesException;
 import com.ejournal.java.mappers.SchoolMapper;
 import com.ejournal.java.repositories.SchoolRepository;
 import com.ejournal.java.services.SchoolService;
@@ -23,13 +23,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SchoolServiceImpl implements SchoolService {
 
+    private static final String SCHOOL = "School";
+
     private final SchoolRepository schoolRepository;
     private final SchoolMapper schoolMapper;
 
     @Override
     public ApiResponseDto createSchool(final CreateSchoolDto createSchoolDto) {
         if (schoolRepository.existsByCityAndName(createSchoolDto.getCity(), createSchoolDto.getName())) {
-            throw new SchoolExistsException();
+            throw new EntityExistsException(SCHOOL);
         }
 
         schoolRepository.save(schoolMapper.createSchoolDtoToSchool(createSchoolDto));
@@ -56,25 +58,22 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public SchoolDto getSchool(final String id) {
-        return schoolRepository.findById(id)
-                .map(schoolMapper::schoolToSchoolDto)
-                .orElseThrow(SchoolDoesNotExistException::new);
+        return schoolMapper.schoolToSchoolDto(getById(id));
     }
 
     @Override
     public School getById(final String id) {
         return schoolRepository.findById(id)
-                .orElseThrow(SchoolDoesNotExistException::new);
+                .orElseThrow(() -> new EntityNotFoundException(SCHOOL, id));
     }
 
     @Override
     public SchoolDto updateSchool(final SchoolDto schoolDto) {
         if (StringUtils.isBlank(schoolDto.getName()) && StringUtils.isBlank(schoolDto.getCity())) {
-            throw new MissingSchoolUpdateProperties();
+            throw new MissingPropertiesException(SCHOOL);
         }
 
-        final School school = schoolRepository.findById(schoolDto.getId())
-                .orElseThrow(SchoolDoesNotExistException::new);
+        final School school = getById(schoolDto.getId());
 
         return schoolMapper.schoolToSchoolDto(schoolRepository.save(schoolMapper.updateSchool(schoolDto, school)));
     }

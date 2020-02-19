@@ -14,8 +14,8 @@ import com.ejournal.java.dtos.student.StudentRegisterDto;
 import com.ejournal.java.entities.Group;
 import com.ejournal.java.entities.Student;
 import com.ejournal.java.enums.RoleName;
-import com.ejournal.java.exceptions.StudentDoesNotExistException;
-import com.ejournal.java.exceptions.UserExistsException;
+import com.ejournal.java.exceptions.EntityExistsException;
+import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.mappers.StudentMapper;
 import com.ejournal.java.repositories.StudentRepository;
 import com.ejournal.java.services.GroupService;
@@ -30,6 +30,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
+    private static final String STUDENT = "Student";
+
     private final StudentRepository studentRepository;
     private final RoleService roleService;
     private final GroupService groupService;
@@ -38,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentInfoDto register(final StudentRegisterDto studentRegisterDto) {
         if (studentRepository.existsByEmail(studentRegisterDto.getEmail())) {
-            throw new UserExistsException();
+            throw new EntityExistsException(STUDENT);
         }
 
         final Student student = studentMapper.studentRegisterDtoToStudent(studentRegisterDto);
@@ -54,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getById(final String id) {
         return studentRepository.findById(id)
-                .orElseThrow(StudentDoesNotExistException::new);
+                .orElseThrow(() -> new EntityNotFoundException(STUDENT, id));
     }
 
     @Override

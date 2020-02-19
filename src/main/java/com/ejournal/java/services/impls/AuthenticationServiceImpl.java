@@ -19,7 +19,7 @@ import com.ejournal.java.entities.Role;
 import com.ejournal.java.entities.User;
 import com.ejournal.java.entities.UserPrincipal;
 import com.ejournal.java.enums.RoleName;
-import com.ejournal.java.exceptions.UserExistsException;
+import com.ejournal.java.exceptions.EntityExistsException;
 import com.ejournal.java.exceptions.UserRoleNotSetException;
 import com.ejournal.java.mappers.UserMapper;
 import com.ejournal.java.repositories.RoleRepository;
@@ -33,6 +33,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+
+    private static final String USER = "User";
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -54,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ApiResponseDto register(final RegisterRequestDto registerRequestDto) {
         if (userRepository.existsByEmail(registerRequestDto.getEmail())) {
-            throw new UserExistsException();
+            throw new EntityExistsException(USER);
         }
 
         Role role = roleRepository.findByName(RoleName.ROLE_ADMIN)
@@ -71,7 +73,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ApiResponseDto changePassword(final ChangePasswordDto changePasswordDto) {
         final User user = userRepository.findByEmail(changePasswordDto.getEmail())
-                .orElseThrow(UserExistsException::new);
+                .orElseThrow(() -> new EntityExistsException(USER));
 
         user.setPassword(passwordEncoder.encode(changePasswordDto.getPassword()));
 

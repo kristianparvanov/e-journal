@@ -92,7 +92,7 @@ public class LeaveServiceImpl implements LeaveService {
     @Override
     public ApiResponseDto deleteLeave(final String id) {
         final Leave leave = leaveRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Leave with id: '%s' doesn't exist", id)));
+                .orElseThrow(() -> new EntityNotFoundException("Leave", id));
 
         leaveRepository.delete(leave);
 
