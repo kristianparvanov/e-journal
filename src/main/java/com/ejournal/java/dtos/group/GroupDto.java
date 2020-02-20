@@ -1,7 +1,10 @@
 package com.ejournal.java.dtos.group;
 
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
+import com.ejournal.java.dtos.school.SchoolDto;
+import com.ejournal.java.dtos.student.StudentInfoDto;
 import lombok.Data;
 
 /**
@@ -15,4 +18,6 @@ public class GroupDto {
     private Integer level;
     private String name;
     private Integer year;
+    private SchoolDto school;
+    private List<StudentInfoDto> students;
 }

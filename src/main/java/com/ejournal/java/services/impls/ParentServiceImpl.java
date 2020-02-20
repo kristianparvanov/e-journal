@@ -1,8 +1,13 @@
 package com.ejournal.java.services.impls;
 
+import static com.ejournal.java.utils.Util.formatName;
+
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.parent.ParentDto;
@@ -61,5 +66,16 @@ public class ParentServiceImpl implements ParentService {
         parentRepository.delete(parent);
 
         return new ApiResponseDto(true, "Parent is deleted successfully");
+    }
+
+    @Override
+    public Page<ParentDto> getParents(final String name, final Pageable pageable) {
+        if (StringUtils.isNotBlank(name)) {
+            return parentRepository.findParentsByName(formatName(name), pageable)
+                    .map(parentMapper::parentToParentDto);
+        }
+
+        return parentRepository.findAll(pageable)
+                .map(parentMapper::parentToParentDto);
     }
 }
