@@ -4,6 +4,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.ejournal.java.dtos.school.SchoolDto;
+import com.ejournal.java.dtos.student.GroupStudentInfoDto;
 import com.ejournal.java.dtos.student.StudentInfoDto;
 import lombok.Data;
 
@@ -19,5 +20,5 @@ public class GroupDto {
     private String name;
     private Integer year;
     private SchoolDto school;
-    private List<StudentInfoDto> students;
+    private List<GroupStudentInfoDto> students;
 }

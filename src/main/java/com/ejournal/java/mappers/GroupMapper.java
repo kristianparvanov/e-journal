@@ -14,8 +14,7 @@ import com.ejournal.java.entities.Group;
 /**
  * Created by kristiyan.parvanov on 27.12.19 г.
  */
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-        uses = { SchoolMapper.class, StudentMapper.class })
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface GroupMapper {
 
     @Mapping(target = "id", ignore = true)

@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.ejournal.java.dtos.student.GroupStudentInfoDto;
 import com.ejournal.java.dtos.student.StudentInfoDto;
 import com.ejournal.java.dtos.student.StudentRegisterDto;
 import com.ejournal.java.entities.Student;
@@ -35,4 +36,6 @@ public abstract class StudentMapper {
     public abstract Student studentRegisterDtoToStudent(StudentRegisterDto studentRegisterDto);
 
     public abstract StudentInfoDto studentToStudentInfoDto(Student student);
+
+    public abstract GroupStudentInfoDto studentToGroupStudentInfoDto(Student student);
 }
