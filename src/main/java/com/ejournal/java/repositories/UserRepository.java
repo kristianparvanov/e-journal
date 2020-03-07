@@ -2,8 +2,11 @@ package com.ejournal.java.repositories;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import com.ejournal.java.entities.Role;
 import com.ejournal.java.entities.User;
 
 /**
@@ -17,4 +20,6 @@ public interface UserRepository extends CrudRepository<User, String > {
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    Page<User> findByRoles(Role role, Pageable pageable);
 }
