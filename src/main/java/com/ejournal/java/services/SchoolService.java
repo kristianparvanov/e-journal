@@ -2,7 +2,6 @@ package com.ejournal.java.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.school.CreateSchoolDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.entities.School;
@@ -12,7 +11,7 @@ import com.ejournal.java.entities.School;
  */
 public interface SchoolService {
 
-    ApiResponseDto createSchool(CreateSchoolDto createSchoolDto);
+    SchoolDto createSchool(CreateSchoolDto createSchoolDto);
 
     Page<SchoolDto> getAllSchools(Pageable pageable);
 

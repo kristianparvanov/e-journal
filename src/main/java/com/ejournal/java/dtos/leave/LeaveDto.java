@@ -2,6 +2,7 @@ package com.ejournal.java.dtos.leave;
 
 import java.time.LocalDate;
 
+import com.ejournal.java.dtos.student.SimpleStudentDto;
 import com.ejournal.java.dtos.subjcet.SimpleSubjectDto;
 import com.ejournal.java.dtos.teacher.SimpleTeacherDto;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class LeaveDto {
     private LocalDate date;
     private SimpleSubjectDto subject;
     private SimpleTeacherDto teacher;
+    private SimpleStudentDto student;
 }

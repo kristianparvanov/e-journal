@@ -14,5 +14,6 @@ public class TeacherInfoDto {
     private String id;
     private String firstName;
     private String lastName;
+    private Boolean isDirector;
     private SchoolDto school;
 }

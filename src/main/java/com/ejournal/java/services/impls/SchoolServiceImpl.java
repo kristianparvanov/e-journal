@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.dtos.school.CreateSchoolDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.entities.School;
@@ -29,14 +28,12 @@ public class SchoolServiceImpl implements SchoolService {
     private final SchoolMapper schoolMapper;
 
     @Override
-    public ApiResponseDto createSchool(final CreateSchoolDto createSchoolDto) {
+    public SchoolDto createSchool(final CreateSchoolDto createSchoolDto) {
         if (schoolRepository.existsByCityAndName(createSchoolDto.getCity(), createSchoolDto.getName())) {
             throw new EntityExistsException(SCHOOL);
         }
 
-        schoolRepository.save(schoolMapper.createSchoolDtoToSchool(createSchoolDto));
-
-        return new ApiResponseDto(true, "School is created successfully");
+        return schoolMapper.schoolToSchoolDto(schoolRepository.save(schoolMapper.createSchoolDtoToSchool(createSchoolDto)));
     }
 
     @Override

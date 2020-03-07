@@ -34,7 +34,7 @@ public class SchoolController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponseDto createSchool(@Valid @RequestBody CreateSchoolDto createSchoolDto) {
+    public SchoolDto createSchool(@Valid @RequestBody CreateSchoolDto createSchoolDto) {
         return schoolService.createSchool(createSchoolDto);
     }
 

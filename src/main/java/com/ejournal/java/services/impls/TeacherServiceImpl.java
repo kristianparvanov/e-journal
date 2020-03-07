@@ -3,6 +3,9 @@ package com.ejournal.java.services.impls;
 import static com.ejournal.java.utils.Util.formatName;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -10,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
+import com.ejournal.java.dtos.teacher.UpdateTeacherDto;
+import com.ejournal.java.entities.Role;
 import com.ejournal.java.entities.School;
 import com.ejournal.java.entities.Teacher;
 import com.ejournal.java.enums.RoleName;
@@ -43,7 +48,13 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         final Teacher teacher = teacherMapper.teacherRegisterDtoToTeacher(teacherRegisterDto);
-        teacher.setRoles(Collections.singleton(roleService.findByName(RoleName.ROLE_TEACHER)));
+        final Set<Role> roles = new HashSet<>(Collections.singleton(roleService.findByName(RoleName.ROLE_TEACHER)));
+
+        if (teacherRegisterDto.getIsDirector()) {
+            roles.add(roleService.findByName(RoleName.ROLE_DIRECTOR));
+        }
+
+        teacher.setRoles(roles);
 
         final School school = schoolService.getById(teacherRegisterDto.getSchoolId());
         teacher.setSchool(school);
@@ -63,13 +74,33 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Page<TeacherInfoDto> getTeachers(final String name, final Pageable pageable) {
+    public Page<TeacherInfoDto> getTeachers(final String name, final Boolean isDirector, final Pageable pageable) {
         if (StringUtils.isNotBlank(name)) {
-            return teacherRepository.findTeachersByName(formatName(name), pageable)
+            return teacherRepository.findTeachersByName(formatName(name), isDirector, pageable)
+                    .map(teacherMapper::teacherToTeacherInfoDto);
+        }
+
+        if (!Objects.isNull(isDirector)) {
+            return teacherRepository.findAllByIsDirector(isDirector, pageable)
                     .map(teacherMapper::teacherToTeacherInfoDto);
         }
 
         return teacherRepository.findAll(pageable)
                 .map(teacherMapper::teacherToTeacherInfoDto);
+    }
+
+    @Override
+    public Page<TeacherInfoDto> getBySchool(final String schoolId, final Pageable pageable) {
+        final School school = schoolService.getById(schoolId);
+
+        return teacherRepository.findAllBySchool(school, pageable)
+                .map(teacherMapper::teacherToTeacherInfoDto);
+    }
+
+    @Override
+    public TeacherInfoDto updateTeacher(final UpdateTeacherDto updateTeacherDto) {
+        final Teacher teacher = getById(updateTeacherDto.getId());
+
+        return teacherMapper.teacherToTeacherInfoDto(teacherRepository.save(teacherMapper.updateTeacher(updateTeacherDto, teacher)));
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
+import com.ejournal.java.dtos.teacher.UpdateTeacherDto;
 import com.ejournal.java.entities.Teacher;
 
 /**
@@ -17,5 +18,9 @@ public interface TeacherService {
 
     TeacherInfoDto getTeacher(String id);
 
-    Page<TeacherInfoDto> getTeachers(String name, Pageable pageable);
+    Page<TeacherInfoDto> getTeachers(String name, Boolean isDirector, Pageable pageable);
+
+    Page<TeacherInfoDto> getBySchool(String schoolId, Pageable pageable);
+
+    TeacherInfoDto updateTeacher(UpdateTeacherDto updateTeacherDto);
 }

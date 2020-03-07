@@ -1,14 +1,19 @@
 package com.ejournal.java.mappers;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ejournal.java.dtos.teacher.SimpleTeacherDto;
 import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
+import com.ejournal.java.dtos.teacher.UpdateTeacherDto;
 import com.ejournal.java.entities.Teacher;
 
 /**
@@ -37,4 +42,9 @@ public abstract class TeacherMapper {
     public abstract SimpleTeacherDto teacherToSimpleTeacherDto(Teacher teacher);
 
     public abstract TeacherInfoDto teacherToTeacherInfoDto(Teacher teacher);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    public abstract Teacher updateTeacher(UpdateTeacherDto updateTeacherDto, @MappingTarget Teacher teacher);
 }

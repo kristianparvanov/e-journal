@@ -3,6 +3,7 @@ package com.ejournal.java.entities;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -27,6 +28,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Teacher extends User {
+
+    @Column(name = "is_director")
+    private Boolean isDirector;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", referencedColumnName = "id")

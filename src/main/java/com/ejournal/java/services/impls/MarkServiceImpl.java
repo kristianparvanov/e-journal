@@ -17,6 +17,7 @@ import com.ejournal.java.entities.Teacher;
 import com.ejournal.java.enums.RoleName;
 import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.exceptions.MissingPropertiesException;
+import com.ejournal.java.exceptions.UnauthorizedException;
 import com.ejournal.java.mappers.MarkMapper;
 import com.ejournal.java.repositories.MarkRepository;
 import com.ejournal.java.services.AuthenticationService;
@@ -69,7 +70,7 @@ public class MarkServiceImpl implements MarkService {
     public Page<MarkDto> getByStudent(String studentId, Pageable pageable) {
         if (Objects.isNull(studentId)) {
             if (!authenticationService.hasRole(RoleName.ROLE_STUDENT)) {
-                throw new RuntimeException("NQMA PYK");
+                throw new UnauthorizedException();
             }
 
             return getMarksForStudent(authenticationService.getCurrentUserId(), pageable);

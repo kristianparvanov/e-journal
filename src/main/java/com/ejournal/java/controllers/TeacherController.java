@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
+import com.ejournal.java.dtos.teacher.UpdateTeacherDto;
 import com.ejournal.java.services.TeacherService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,16 +38,32 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
     @ResponseStatus(HttpStatus.OK)
     public TeacherInfoDto getTeacher(@PathVariable String id) {
         return teacherService.getTeacher(id);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<TeacherInfoDto> getTeachers(@RequestParam(required = false) String name,
+                                            @RequestParam(required = false) Boolean isDirector,
+                                            Pageable pageable) {
+        return teacherService.getTeachers(name, isDirector, pageable);
+    }
+
+    @GetMapping("-by-school")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<TeacherInfoDto> getTeachers(@RequestParam(required = false) String name, Pageable pageable) {
-        return teacherService.getTeachers(name, pageable);
+    public Page<TeacherInfoDto> getBySchool(@RequestParam String schoolId, Pageable pageable) {
+        return teacherService.getBySchool(schoolId, pageable);
+    }
+
+    @PostMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public TeacherInfoDto updateTeacher(@Valid @RequestBody UpdateTeacherDto updateTeacherDto) {
+        return teacherService.updateTeacher(updateTeacherDto);
     }
 }

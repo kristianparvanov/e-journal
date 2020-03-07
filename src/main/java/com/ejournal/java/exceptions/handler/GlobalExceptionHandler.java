@@ -13,6 +13,7 @@ import com.ejournal.java.dtos.ApiResponseDto;
 import com.ejournal.java.exceptions.EntityExistsException;
 import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.exceptions.MissingPropertiesException;
+import com.ejournal.java.exceptions.UnauthorizedException;
 import com.ejournal.java.exceptions.UserRoleNotSetException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,14 +27,14 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ UserRoleNotSetException.class, EntityNotFoundException.class,
             MissingPropertiesException.class, EntityExistsException.class })
-    public ApiResponseDto userAlreadyExists(Exception exception) {
+    public ApiResponseDto handleBadRequestExceptions(RuntimeException exception) {
         log.info(exception.getMessage(), exception);
 
         return new ApiResponseDto(false, exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiResponseDto handleArgumentNotValid(MethodArgumentNotValidException exception) {
         final Map<String, String> errorList = exception
                 .getBindingResult()
@@ -43,5 +44,13 @@ public class GlobalExceptionHandler {
         log.info(exception.getMessage(), exception);
 
         return new ApiResponseDto(false, errorList.toString());
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UnauthorizedException.class)
+    public ApiResponseDto handleUnauthorizedException(UnauthorizedException exception) {
+        log.info(exception.getMessage(), exception);
+
+        return new ApiResponseDto(false, exception.getMessage());
     }
 }

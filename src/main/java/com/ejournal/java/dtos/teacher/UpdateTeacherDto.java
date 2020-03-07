@@ -2,7 +2,6 @@ package com.ejournal.java.dtos.teacher;
 
 import javax.validation.constraints.NotBlank;
 
-import com.ejournal.java.dtos.auhtentication.RegisterRequestDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +10,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class TeacherRegisterDto extends RegisterRequestDto {
+public class UpdateTeacherDto {
 
     @NotBlank
+    private String id;
     private String schoolId;
     private Boolean isDirector;
 }
