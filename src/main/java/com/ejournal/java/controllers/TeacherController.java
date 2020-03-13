@@ -53,10 +53,10 @@ public class TeacherController {
         return teacherService.getTeachers(name, isDirector, pageable);
     }
 
-    @GetMapping("-by-school")
+    @GetMapping("/school/{schoolId}")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
-    public Page<TeacherInfoDto> getBySchool(@RequestParam String schoolId, Pageable pageable) {
+    public Page<TeacherInfoDto> getBySchool(@PathVariable String schoolId, Pageable pageable) {
         return teacherService.getBySchool(schoolId, pageable);
     }
 
