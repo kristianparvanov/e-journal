@@ -1,5 +1,6 @@
 package com.ejournal.java.services.impls;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import com.ejournal.java.entities.DayItem;
 import com.ejournal.java.entities.Group;
 import com.ejournal.java.entities.Schedule;
 import com.ejournal.java.enums.DayOfWeek;
+import com.ejournal.java.enums.Term;
 import com.ejournal.java.exceptions.EntityExistsException;
 import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.exceptions.MissingPropertiesException;
@@ -54,14 +56,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleDto updateSchedule(final UpdateScheduleDto updateScheduleDto) {
-        if (Objects.isNull(updateScheduleDto.getFromDate()) && StringUtils.isBlank(updateScheduleDto.getGroupId())) {
+        if (Objects.isNull(updateScheduleDto.getTerm()) && StringUtils.isBlank(updateScheduleDto.getGroupId())) {
             throw new MissingPropertiesException("Schedule");
         }
 
         final Schedule schedule = getById(updateScheduleDto.getId());
 
-        if (!Objects.isNull(updateScheduleDto.getFromDate())) {
-            schedule.setFromDate(updateScheduleDto.getFromDate());
+        if (!Objects.isNull(updateScheduleDto.getTerm())) {
+            schedule.setTerm(Term.FIRST);
         }
 
         if (StringUtils.isNotBlank(updateScheduleDto.getGroupId())) {
@@ -76,12 +78,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleDto createSchedule(final CreateScheduleDto createScheduleDto) {
         final Group group = groupService.getById(createScheduleDto.getGroupId());
 
-        if (scheduleRepository.existsByGroupAndFromDate(group, createScheduleDto.getFromDate())) {
+        if (scheduleRepository.existsByGroupAndTerm(group, createScheduleDto.getTerm())) {
             throw new EntityExistsException("Schedule already exists");
         }
 
         final Schedule schedule = Schedule.builder()
-                .fromDate(createScheduleDto.getFromDate())
+                .term(createScheduleDto.getTerm())
                 .group(group)
                 .build();
 
@@ -96,15 +98,26 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public List<ScheduleDto> getSchedulesByGroup(final String groupId, final Term term) {
+        final Group group = groupService.getById(groupId);
+
+        if (Objects.isNull(term)) {
+            return scheduleRepository.findByGroupOrderByTerm(group).stream()
+                    .map(scheduleMapper::scheduleToScheduleDto)
+                    .collect(Collectors.toList());
+        }
+
+        return Collections.singletonList(scheduleMapper.scheduleToScheduleDto(scheduleRepository.findByGroupAndTerm(group, term)));
+    }
+
+    @Override
     public ScheduleDayDto createScheduleDay(final CreateScheduleDayDto createScheduleDayDto) {
         final Schedule schedule = getById(createScheduleDayDto.getScheduleId());
 
         final DayOfWeek dayOfWeek = createScheduleDayDto.getDayOfWeek();
         final List<DayItem> dayItems = createScheduleDayDto.getDays().stream()
                 .map(createDayItemDto -> dayItemService.buildDayItem(createDayItemDto, dayOfWeek))
-                .peek(dayItem -> {
-                    dayItem.setSchedule(schedule);
-                })
+                .peek(dayItem -> dayItem.setSchedule(schedule))
                 .collect(Collectors.toList());
 
         final List<DayItemDto> savedDateItems = dayItemService.saveAll(dayItems);

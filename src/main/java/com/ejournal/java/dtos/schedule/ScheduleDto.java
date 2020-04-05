@@ -1,10 +1,10 @@
 package com.ejournal.java.dtos.schedule;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.ejournal.java.dtos.dayitem.DayItemDto;
-import com.ejournal.java.dtos.group.GroupDto;
+import com.ejournal.java.dtos.group.GroupScheduleDto;
+import com.ejournal.java.enums.Term;
 import lombok.Data;
 
 /**
@@ -14,7 +14,7 @@ import lombok.Data;
 public class ScheduleDto {
 
     private String id;
-    private LocalDate fromDate;
-    private GroupDto group;
+    private Term term;
+    private GroupScheduleDto group;
     private List<DayItemDto> days;
 }

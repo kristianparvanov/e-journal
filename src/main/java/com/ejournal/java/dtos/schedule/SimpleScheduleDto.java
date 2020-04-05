@@ -1,8 +1,7 @@
 package com.ejournal.java.dtos.schedule;
 
-import java.time.LocalDate;
-
-import com.ejournal.java.dtos.group.GroupDto;
+import com.ejournal.java.dtos.group.GroupScheduleDto;
+import com.ejournal.java.enums.Term;
 import lombok.Data;
 
 /**
@@ -12,6 +11,6 @@ import lombok.Data;
 public class SimpleScheduleDto {
 
     private String id;
-    private LocalDate fromDate;
-    private GroupDto group;
+    private Term term;
+    private GroupScheduleDto group;
 }

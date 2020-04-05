@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ejournal.java.dtos.teacher.SimpleTeacherDto;
 import com.ejournal.java.dtos.teacher.TeacherInfoDto;
 import com.ejournal.java.dtos.teacher.TeacherRegisterDto;
+import com.ejournal.java.dtos.teacher.TeacherStudentDto;
 import com.ejournal.java.dtos.teacher.UpdateTeacherDto;
 import com.ejournal.java.entities.Teacher;
 
@@ -42,6 +43,8 @@ public abstract class TeacherMapper {
     public abstract SimpleTeacherDto teacherToSimpleTeacherDto(Teacher teacher);
 
     public abstract TeacherInfoDto teacherToTeacherInfoDto(Teacher teacher);
+
+    public abstract TeacherStudentDto teacherToTeacherStudentDto(Teacher teacher);
 
     @Mapping(target = "id", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,

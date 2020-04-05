@@ -8,6 +8,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import com.ejournal.java.dtos.mark.MarkDto;
+import com.ejournal.java.dtos.mark.MarkStudentDto;
 import com.ejournal.java.dtos.mark.UpdateMarkDto;
 import com.ejournal.java.entities.Mark;
 
@@ -20,6 +21,9 @@ public interface MarkMapper {
 
     @Mapping(target = "date", source = "mark.modificationDate")
     MarkDto markToMarkDto(Mark mark);
+
+    @Mapping(target = "date", source = "mark.modificationDate")
+    MarkStudentDto markToMarkStudentDto(Mark mark);
 
     @Mapping(target = "modificationDate", ignore = true)
     @Mapping(target = "teacher", ignore = true)

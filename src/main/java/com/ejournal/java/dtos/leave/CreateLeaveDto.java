@@ -1,5 +1,6 @@
 package com.ejournal.java.dtos.leave;
 
+import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
@@ -18,4 +19,6 @@ public class CreateLeaveDto {
 
     @NotBlank
     private String teacherId;
+
+    private LocalDate leaveDate;
 }

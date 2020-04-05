@@ -1,8 +1,5 @@
 package com.ejournal.java.dtos.parent;
 
-import java.util.List;
-
-import com.ejournal.java.dtos.student.SimpleStudentDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +8,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ParentDto {
+public class ParentStudentDto {
 
     private String id;
     private String email;
     private String firstName;
     private String middleName;
     private String lastName;
-    private List<SimpleStudentDto> students;
 }

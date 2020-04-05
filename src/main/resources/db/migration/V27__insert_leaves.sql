@@ -1,0 +1,11 @@
+INSERT INTO `ejournal`.`leaves` (`id`, `modification_date`, `student_id`, `subject_id`, `teacher_id`)
+VALUES
+('e376562f-3925-4b0c-ba6c-c37109987718', '2020-01-06', 'cec0317c-54af-4a4d-ba21-5f38397a505e', '350c9335-7499-46ec-b782-0dae6fa50c4f', 'df1225ad-308b-406e-9299-87357d25b75f'),
+('53f891ab-11fc-4d34-b370-1be9a9e19cad', '2020-01-07', 'cec0317c-54af-4a4d-ba21-5f38397a505e', '9d048602-9fd6-47dc-b4a1-ae1371f92d7e', '61a6b62a-b41a-4d67-8aa4-a6cdb2d49147'),
+('2bf95ed8-b119-4346-81ea-2f59907f34b9', '2020-01-08', 'cec0317c-54af-4a4d-ba21-5f38397a505e', '350c9335-7499-46ec-b782-0dae6fa50c4f', 'df1225ad-308b-406e-9299-87357d25b75f'),
+('eb5c8d08-ffba-4278-82d5-05bcac225966', '2020-01-10', 'cec0317c-54af-4a4d-ba21-5f38397a505e', '9d048602-9fd6-47dc-b4a1-ae1371f92d7e', '61a6b62a-b41a-4d67-8aa4-a6cdb2d49147'),
+
+('39ca4633-4856-491d-886e-0ccb4729e591', '2020-01-06', '3ddccae1-ada0-4fff-aff1-cb9b4166d6d7', '350c9335-7499-46ec-b782-0dae6fa50c4f', 'df1225ad-308b-406e-9299-87357d25b75f'),
+('6241bb4f-4107-4054-b2b8-ef6e994b5d82', '2020-01-07', '3ddccae1-ada0-4fff-aff1-cb9b4166d6d7', '9d048602-9fd6-47dc-b4a1-ae1371f92d7e', '61a6b62a-b41a-4d67-8aa4-a6cdb2d49147'),
+('6bedee98-c12b-4e43-89e4-91f6846a4468', '2020-01-08', '3ddccae1-ada0-4fff-aff1-cb9b4166d6d7', '350c9335-7499-46ec-b782-0dae6fa50c4f', 'df1225ad-308b-406e-9299-87357d25b75f'),
+('e40031f1-acbc-4fac-99c9-7d234495bfa9', '2020-01-09', '3ddccae1-ada0-4fff-aff1-cb9b4166d6d7', '9d048602-9fd6-47dc-b4a1-ae1371f92d7e', '61a6b62a-b41a-4d67-8aa4-a6cdb2d49147');

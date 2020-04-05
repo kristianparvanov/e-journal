@@ -1,7 +1,8 @@
 package com.ejournal.java.services.impls;
 
+import static java.util.Objects.isNull;
+
 import java.time.LocalDate;
-import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,7 +51,7 @@ public class LeaveServiceImpl implements LeaveService {
                 .student(student)
                 .teacher(teacher)
                 .subject(subject)
-                .modificationDate(LocalDate.now())
+                .modificationDate(isNull(createLeaveDto.getLeaveDate()) ? LocalDate.now() : createLeaveDto.getLeaveDate())
                 .build();
 
         return leaveMapper.leaveToLeaveDto(leaveRepository.save(leave));
@@ -70,7 +71,7 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public Page<LeaveDto> getByStudent(String studentId, Pageable pageable) {
-        if (Objects.isNull(studentId)) {
+        if (isNull(studentId)) {
             if (!authenticationService.hasRole(RoleName.ROLE_STUDENT)) {
                 throw new RuntimeException("NQMA PYK");
             }

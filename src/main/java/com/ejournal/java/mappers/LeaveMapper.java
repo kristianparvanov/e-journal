@@ -4,6 +4,7 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import com.ejournal.java.dtos.leave.LeaveDto;
+import com.ejournal.java.dtos.leave.LeaveStudentDto;
 import com.ejournal.java.entities.Leave;
 
 /**
@@ -15,4 +16,7 @@ public interface LeaveMapper {
 
     @Mapping(target = "date", source = "leave.modificationDate")
     LeaveDto leaveToLeaveDto(Leave leave);
+
+    @Mapping(target = "date", source = "leave.modificationDate")
+    LeaveStudentDto leaveToLeaveStudentDto(Leave leave);
 }

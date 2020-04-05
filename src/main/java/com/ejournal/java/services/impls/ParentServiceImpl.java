@@ -4,6 +4,7 @@ import static com.ejournal.java.utils.Util.formatName;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;

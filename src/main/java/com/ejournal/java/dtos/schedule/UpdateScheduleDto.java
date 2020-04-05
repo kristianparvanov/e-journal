@@ -1,9 +1,8 @@
 package com.ejournal.java.dtos.schedule;
 
-import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.ejournal.java.enums.Term;
 import lombok.Data;
 
 /**
@@ -15,8 +14,7 @@ public class UpdateScheduleDto {
     @NotBlank
     private String id;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate fromDate;
+    private Term term;
 
     private String groupId;
 }

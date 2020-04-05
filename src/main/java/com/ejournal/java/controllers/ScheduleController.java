@@ -1,5 +1,6 @@
 package com.ejournal.java.controllers;
 
+import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.ejournal.java.dtos.ApiResponseDto;
@@ -20,6 +22,7 @@ import com.ejournal.java.dtos.schedule.ScheduleDayDto;
 import com.ejournal.java.dtos.schedule.ScheduleDto;
 import com.ejournal.java.dtos.schedule.UpdateScheduleDayDto;
 import com.ejournal.java.dtos.schedule.UpdateScheduleDto;
+import com.ejournal.java.enums.Term;
 import com.ejournal.java.services.ScheduleService;
 import lombok.RequiredArgsConstructor;
 
@@ -66,6 +69,14 @@ public class ScheduleController {
     @ResponseStatus(HttpStatus.CREATED)
     public ScheduleDayDto createScheduleDay(@RequestBody CreateScheduleDayDto createScheduleDayDto) {
         return scheduleService.createScheduleDay(createScheduleDayDto);
+    }
+
+    @GetMapping("/by-group/{groupId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'STUDENT', 'PARENT')")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ScheduleDto> getSchedulesByGroup(@PathVariable String groupId,
+                                                 @RequestParam(required = false) Term term) {
+        return scheduleService.getSchedulesByGroup(groupId, term);
     }
 
     @GetMapping("/day")

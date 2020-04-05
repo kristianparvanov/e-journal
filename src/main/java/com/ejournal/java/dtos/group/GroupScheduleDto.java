@@ -3,7 +3,6 @@ package com.ejournal.java.dtos.group;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
-import com.ejournal.java.dtos.schedule.ScheduleGroupDto;
 import com.ejournal.java.dtos.school.SchoolDto;
 import com.ejournal.java.dtos.student.GroupStudentInfoDto;
 import lombok.Data;
@@ -12,7 +11,7 @@ import lombok.Data;
  * Created by kristiyan.parvanov on 27.12.19 г.
  */
 @Data
-public class GroupDto {
+public class GroupScheduleDto {
 
     @NotNull
     private String id;
@@ -21,5 +20,4 @@ public class GroupDto {
     private Integer year;
     private SchoolDto school;
     private List<GroupStudentInfoDto> students;
-    private List<ScheduleGroupDto> schedules;
 }

@@ -19,6 +19,7 @@ import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.mappers.StudentMapper;
 import com.ejournal.java.repositories.StudentRepository;
 import com.ejournal.java.services.GroupService;
+import com.ejournal.java.services.ParentStudentService;
 import com.ejournal.java.services.RoleService;
 import com.ejournal.java.services.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class StudentServiceImpl implements StudentService {
     private final RoleService roleService;
     private final GroupService groupService;
     private final StudentMapper studentMapper;
+    private final ParentStudentService parentStudentService;
 
     @Override
     public StudentInfoDto register(final StudentRegisterDto studentRegisterDto) {
@@ -49,6 +51,8 @@ public class StudentServiceImpl implements StudentService {
         final Group group = groupService.getById(studentRegisterDto.getGroupId());
         student.setGroup(group);
         student.setSchool(group.getSchool());
+
+        student.setParents(parentStudentService.getParents(studentRegisterDto.getParentIds()));
 
         return studentMapper.studentToStudentInfoDto(studentRepository.save(student));
     }
@@ -81,7 +85,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<StudentInfoDto> getStudentsByGroup(final String id, Pageable pageable) {
+    public Page<StudentInfoDto> getStudentsByGroup(final String id, final Pageable pageable) {
         return studentRepository.findByGroup(groupService.getById(id), pageable)
                 .map(studentMapper::studentToStudentInfoDto);
     }

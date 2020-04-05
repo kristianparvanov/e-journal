@@ -1,5 +1,6 @@
 package com.ejournal.java.dtos.student;
 
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.ejournal.java.dtos.auhtentication.RegisterRequestDto;
@@ -19,5 +20,5 @@ public class StudentRegisterDto extends RegisterRequestDto {
     @NotNull
     private String schoolId;
 
-    private String parentId;
+    private List<String> parentIds;
 }

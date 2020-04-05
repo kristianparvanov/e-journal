@@ -1,5 +1,7 @@
 package com.ejournal.java.services.impls;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ejournal.java.dtos.group.CreateGroupDto;
 import com.ejournal.java.dtos.group.GroupDto;
 import com.ejournal.java.entities.Group;
+import com.ejournal.java.entities.Schedule;
 import com.ejournal.java.entities.School;
+import com.ejournal.java.enums.Term;
 import com.ejournal.java.exceptions.EntityNotFoundException;
 import com.ejournal.java.exceptions.MissingPropertiesException;
 import com.ejournal.java.mappers.GroupMapper;
@@ -37,6 +41,7 @@ public class GroupServiceImpl implements GroupService {
         final School school = schoolService.getById(createGroupDto.getSchoolId());
 
         group.setSchool(school);
+        group.setSchedules(buildSchedulesForGroup(group));
 
         return groupMapper.groupToGroupDto(groupRepository.save(group));
     }
@@ -88,5 +93,19 @@ public class GroupServiceImpl implements GroupService {
     public Group getById(final String id) {
         return groupRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(GROUP, id));
+    }
+
+    private static List<Schedule> buildSchedulesForGroup(final Group group) {
+        final Schedule firstTermSchedule = Schedule.builder()
+                .group(group)
+                .term(Term.FIRST)
+                .build();
+
+        final Schedule secondTermSchedule = Schedule.builder()
+                .group(group)
+                .term(Term.SECOND)
+                .build();
+
+        return Arrays.asList(firstTermSchedule, secondTermSchedule);
     }
 }
