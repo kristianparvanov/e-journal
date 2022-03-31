@@ -12,7 +12,7 @@
     <description>E Journal</description>
 
     <properties>
-        <spring-boot-starter-web-version>2.2.1.RELEASE</spring-boot-starter-web-version>
+        <spring-boot-starter-web-version>2.5.12</spring-boot-starter-web-version>
         <spring-boot-starter-security-version>2.2.1.RELEASE</spring-boot-starter-security-version>
         <jjwt-version>0.9.1</jjwt-version>
         <mysql-connector-java-version>8.0.18</mysql-connector-java-version>
